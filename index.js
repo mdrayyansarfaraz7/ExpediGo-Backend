@@ -182,6 +182,20 @@ app.get('/india',(req,res)=>{
 app.get('/packages',(req,res)=>{
     res.json(Package);
 })
+
+app.post('/enquire', (req, res) => {
+  const formData = req.body;
+  if (!formData.email || !formData.phone) {
+    return res.status(400).json({ error: 'Email and phone number are required' });
+  }
+
+  console.log('Enquiry received:', formData);
+
+  res.status(200).json({ message: 'Your enquiry has been submitted successfully!' });
+});
+
+
+
 app.listen(port,()=>{
     console.log('listening to port 8080');
 })
