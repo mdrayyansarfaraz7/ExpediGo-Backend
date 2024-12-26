@@ -198,7 +198,7 @@ app.post('/enquire', async (req, res) => {
     subject: 'New Enquiry from ExpediGo Website',
     text: `
       New enquiry received!
-
+      Client's Name: ${formData.name}
       Destination: ${formData.destination}
       Travel Dates: From ${formData.from} To ${formData.to}
       Type of Trip: ${formData.typeOfTrip}
