@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "The backend of ExpediGo is built with Express.js to manage travel packages, customer inquiries, and reviews. It includes routes for India, international, and customized packages, along with a contact form for user inquiries. CORS is enabled for secure cross-origin requests",
   "main": "index.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,7 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "nodemailer": "^6.9.16",
     "nodemon": "^3.1.9"
   }
 }

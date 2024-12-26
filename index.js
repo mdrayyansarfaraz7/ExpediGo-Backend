@@ -1,7 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-
-
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+dotenv.config();
 const app=express();
 
 const port=8080;
@@ -183,7 +184,7 @@ app.get('/packages',(req,res)=>{
     res.json(Package);
 })
 
-app.post('/enquire', (req, res) => {
+app.post('/enquire', async (req, res) => {
   const formData = req.body;
   if (!formData.email || !formData.phone) {
     return res.status(400).json({ error: 'Email and phone number are required' });
@@ -191,10 +192,37 @@ app.post('/enquire', (req, res) => {
 
   console.log('Enquiry received:', formData);
 
-  res.status(200).json({ message: 'Your enquiry has been submitted successfully!' });
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: 'mdrayyansarfaraz@gmail.com', 
+    subject: 'New Enquiry from ExpediGo Website',
+    text: `
+      New enquiry received!
+
+      Destination: ${formData.destination}
+      Travel Dates: From ${formData.from} To ${formData.to}
+      Type of Trip: ${formData.typeOfTrip}
+      Client-Email: ${formData.email}
+      Contact-Phone: ${formData.phone}
+    `,
+  };
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail', 
+      auth: {
+        user: process.env.EMAIL, 
+        pass: process.env.APP_PASSWORD, 
+      },
+    });
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent:', info.response);
+    res.status(200).json({ message: 'Your enquiry has been submitted successfully!' });
+  } catch (error) {
+    console.error('Error sending email:', error);
+    res.status(500).json({ error: 'Failed to send enquiry email' });
+  }
 });
-
-
 
 app.listen(port,()=>{
     console.log('listening to port 8080');
