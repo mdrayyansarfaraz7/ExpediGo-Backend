@@ -170,8 +170,6 @@ const india = [
       package: 8
     }
   ];
-  
-
 app.get('/international',(req,res)=>{
     res.json(international);
 });
@@ -194,7 +192,7 @@ app.post('/enquire', async (req, res) => {
 
   const mailOptions = {
     from: process.env.EMAIL,
-    to: 'mdrayyansarfaraz@gmail.com', 
+    to: 'expedigoholidays@gmail.com', 
     subject: 'New Enquiry from ExpediGo Website',
     text: `
       New enquiry received!
@@ -202,8 +200,8 @@ app.post('/enquire', async (req, res) => {
       Destination: ${formData.destination}
       Travel Dates: From ${formData.from} To ${formData.to}
       Type of Trip: ${formData.typeOfTrip}
-      Client-Email: ${formData.email}
-      Contact-Phone: ${formData.phone}
+      Client's Email: ${formData.email}
+      Contact Number: ${formData.phone}
     `,
   };
 
